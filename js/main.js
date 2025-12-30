@@ -268,6 +268,10 @@ class LogsConverter {
       return;
     }
 
+    const domain = this.extractDomainFromLogs();
+    const date = new Date().toISOString().slice(0, 10);
+    const filename = domain ? `logs_${domain}_${date}.txt` : `logs_${date}.txt`;
+
     const blob = new Blob([this.elements.outputData.value], {
       type: "text/plain;charset=utf-8",
     });
@@ -275,11 +279,30 @@ class LogsConverter {
     const a = document.createElement("a");
 
     a.href = url;
-    a.download = `logs_${new Date().toISOString().slice(0, 10)}.txt`;
+    a.download = filename;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  }
+
+  extractDomainFromLogs() {
+    if (this.allResults.length === 0) return null;
+
+    const firstRecord = this.allResults[0];
+    const domainMatch = firstRecord.match(/для\s+([^\s]+)/);
+
+    if (domainMatch && domainMatch[1]) {
+      const fullDomain = domainMatch[1];
+      const parts = fullDomain.split(".");
+
+      if (parts.length >= 2) {
+        return `${parts[parts.length - 2]}.${parts[parts.length - 1]}`;
+      }
+      return fullDomain;
+    }
+
+    return null;
   }
 
   clearAll() {
