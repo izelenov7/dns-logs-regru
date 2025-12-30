@@ -1,0 +1,99 @@
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(43, 47, 51, 0.85);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal__content {
+  background: #ffffff;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
+  position: relative;
+  border: 1px solid #dfe3e8;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.modal__close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  color: #707a8a;
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__close:hover {
+  color: #2b2f33;
+}
+
+.modal__title {
+  color: #2b2f33;
+  margin-bottom: 25px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #e6e9ef;
+}
+
+.help-content {
+  margin: 20px 0;
+  line-height: 1.6;
+}
+
+.help-steps {
+  margin-left: 20px;
+  margin-bottom: 25px;
+}
+
+.help-steps li {
+  margin-bottom: 12px;
+  color: #2b2f33;
+}
+
+.help-steps code {
+  background: #f2f4f7;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: "Consolas", "Monaco", monospace;
+  color: #3755fa;
+  font-size: 13px;
+  border: 1px solid #dfe3e8;
+}
+
+.help-tip {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  border-left: 4px solid #3755fa;
+  color: #707a8a;
+  font-size: 14px;
+}
+
+.help-tip strong {
+  color: #2b2f33;
+}

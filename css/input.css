@@ -1,0 +1,13 @@
+.input {
+  margin-bottom: 30px;
+}
+
+.input__title {
+  color: #2b2f33;
+  margin-bottom: 15px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}

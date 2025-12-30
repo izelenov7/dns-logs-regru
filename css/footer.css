@@ -1,0 +1,42 @@
+.footer {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid #dfe3e8;
+  color: #707a8a;
+  font-size: 14px;
+  background: #f9fafc;
+}
+
+.footer__container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.footer__info,
+.bug {
+  font-weight: 400;
+}
+
+.bug {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: #707a8a;
+}
+
+.telegram-link {
+  color: #3755fa;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.telegram-link:hover {
+  color: #233cc8;
+  text-decoration: underline;
+}
