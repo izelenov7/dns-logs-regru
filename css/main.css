@@ -6,6 +6,7 @@
 @import url(./output.css);
 @import url(./footer.css);
 @import url(./modal.css);
+@import url(./aside.css);
 
 body {
   font-family: "Inter", sans-serif;
@@ -124,4 +125,38 @@ textarea::placeholder {
 
 .btn:active {
   transform: translateY(0);
+}
+
+@media (max-width: 1500px) {
+  body {
+    padding: 20px 20px 20px 80px;
+  }
+  .container {
+    max-width: 1000px;
+    width: calc(100% - 90px);
+    margin: 20px auto;
+    margin-left: 90px;
+  }
+  .help-btn {
+    right: calc((100% - 1000px) / 2 + 20px);
+    top: 25px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+  }
+  .help-btn {
+    right: 25px;
+    top: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 20px;
+  }
 }
