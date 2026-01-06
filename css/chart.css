@@ -1,0 +1,142 @@
+.chart-wrapper {
+  position: fixed;
+  top: 50%;
+  right: 40px;
+  transform: translateY(-50%);
+  width: 350px;
+  z-index: 90;
+}
+
+.chart-container {
+  background: var(--color-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--color-shadow);
+  border: 1px solid var(--color-border);
+  padding: 20px;
+  transition: all 0.2s;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.chart-title {
+  color: var(--color-text);
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chart-title i {
+  color: var(--color-primary);
+}
+
+.chart-controls {
+  display: flex;
+  gap: 5px;
+  background: var(--color-secondary-bg);
+  border-radius: 6px;
+  padding: 3px;
+}
+
+.chart-btn {
+  padding: 5px 12px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--color-text);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chart-btn.active {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.chart-btn:hover:not(.active) {
+  background: var(--color-secondary-hover);
+}
+
+.chart-canvas-container {
+  height: 200px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+#activityChart {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-stats {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px;
+  border-top: 1px solid var(--color-border);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+@media (max-width: 1500px) {
+  .chart-wrapper {
+    right: 30px;
+    width: 320px;
+  }
+}
+
+@media (max-width: 1300px) {
+  .chart-wrapper {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto 0;
+    order: 3;
+  }
+
+  .app-wrapper {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    padding: 15px;
+  }
+
+  .chart-canvas-container {
+    height: 180px;
+  }
+
+  .chart-title {
+    font-size: 15px;
+  }
+}

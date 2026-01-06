@@ -2,6 +2,7 @@
 @import url(./fonts.css);
 @import url(./reset.css);
 
+@import url(./controls.css);
 @import url(./header.css);
 @import url(./input.css);
 @import url(./output.css);
@@ -9,6 +10,29 @@
 @import url(./modal.css);
 @import url(./aside.css);
 @import url(./hint.css);
+@import url(./chart.css);
+
+.app-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.container {
+  background: var(--color-bg-container);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--color-shadow);
+  width: 1000px;
+  max-width: 1000px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
 
 body {
   font-family: "Inter", sans-serif;
@@ -19,16 +43,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 20px;
-}
-
-.container {
-  background: var(--color-bg-light);
-  border-radius: 8px;
-  box-shadow: var(--shadow-light);
-  width: 100%;
-  max-width: 1000px;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .main {
@@ -44,8 +59,8 @@ textarea {
   font-family: "Consolas", "Monaco", monospace;
   font-size: 14px;
   resize: vertical;
-  transition: border-color var(--transition-fast),
-    box-shadow var(--transition-fast);
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s,
+    color 0.2s;
   background: var(--color-bg);
   color: var(--color-text);
 }
@@ -77,7 +92,7 @@ textarea::placeholder {
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all 0.2s;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -99,7 +114,7 @@ textarea::placeholder {
 
 .btn-secondary {
   background: var(--color-secondary-bg);
-  color: var(--color-dark);
+  color: var(--color-text);
   border-color: var(--color-secondary-border);
 }
 
@@ -109,54 +124,63 @@ textarea::placeholder {
 }
 
 .btn-clear {
-  background: var(--color-dark);
-  color: var(--color-white);
-  border-color: var(--color-dark);
+  background: var(--color-invert-bg);
+  color: var(--color-invert-text);
+  border-color: var(--color-invert-bg);
 }
 
 .btn-clear:hover {
-  background: var(--color-dark-hover);
-  border-color: var(--color-dark-hover);
+  background: var(--color-invert-hover);
+  border-color: var(--color-invert-hover);
 }
 
 .btn:hover {
-  box-shadow: var(--shadow-medium);
-}
-
-.btn:active {
-  transform: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 1500px) {
   body {
     padding: 20px 20px 20px 80px;
   }
-  .container {
+
+  .app-wrapper {
     max-width: 1000px;
-    width: calc(100% - 90px);
-    margin: 20px auto;
-    margin-left: 90px;
+    gap: 20px;
   }
-  .help-btn {
-    right: calc((100% - 1000px) / 2 + 20px);
-    top: 25px;
+
+  .container {
+    width: calc(100% - 350px);
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
+  .app-wrapper {
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px;
+  }
+
   .container {
     width: 100%;
-    max-width: 1000px;
-    margin: 20px auto;
-  }
-  .help-btn {
-    right: 25px;
-    top: 25px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 770px) {
   body {
+    padding: 0;
+  }
+
+  .app-wrapper {
+    margin: 0;
+  }
+
+  .container {
+    margin: 0;
+    border-radius: 0;
+    border: none;
+  }
+
+  .main {
     padding: 20px;
   }
 }

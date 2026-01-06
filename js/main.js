@@ -174,6 +174,9 @@ class LogsConverter {
       this.allResults = [];
       this.elements.outputData.value = "";
       this.updateStats();
+      if (window.activityChart) {
+        window.activityChart.clear();
+      }
       return;
     }
 
@@ -191,6 +194,13 @@ class LogsConverter {
     this.allResults = results;
     this.elements.outputData.value = results.join("\n");
     this.updateStats(results.length, lines.length);
+
+    if (window.activityChart && results.length > 0) {
+      console.log("Sending data to chart:", results.length, "records");
+      window.activityChart.parseLogs(results);
+    } else {
+      console.log("Chart not available or no results");
+    }
   }
 
   updateStats(processed = 0, total = 0) {
@@ -310,9 +320,13 @@ class LogsConverter {
     this.elements.outputData.value = "";
     this.allResults = [];
     this.updateStats();
+    if (window.activityChart) {
+      window.activityChart.clear();
+    }
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  new LogsConverter();
+  console.log("Initializing LogsConverter...");
+  window.logsConverter = new LogsConverter();
 });
