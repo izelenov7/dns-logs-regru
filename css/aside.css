@@ -23,36 +23,35 @@
   align-items: center;
   gap: 10px;
   padding: 10px 12px;
-  background: #f2f4f7;
-  border: 1px solid #dfe3e8;
+  background: var(--color-secondary-bg);
+  border: 1px solid var(--color-secondary-border);
   border-radius: 8px;
-  color: #2b2f33;
+  color: var(--color-text);
   text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all var(--transition-fast) ease;
+  box-shadow: var(--shadow-light);
   font-size: 14px;
   font-weight: 500;
   max-width: 220px;
 }
 
 .aside__link:hover {
-  background: #3755fa;
-  color: white;
-  border-color: #3755fa;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(55, 85, 250, 0.2);
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-primary);
 }
 
 .aside__link i {
-  color: #3755fa;
+  color: var(--color-primary);
   font-size: 18px;
   width: 20px;
   text-align: center;
-  transition: color 0.3s ease;
+  transition: color var(--transition-fast) ease;
 }
 
 .aside__link:hover i {
-  color: white;
+  color: var(--color-white);
 }
 
 .aside__text {
@@ -67,13 +66,13 @@
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
   font-size: 11px;
-  color: #707a8a;
+  color: var(--color-gray);
   margin-left: auto;
-  transition: color 0.3s ease;
+  transition: color var(--transition-fast) ease;
 }
 
 .aside__link:hover::after {
-  color: white;
+  color: var(--color-white);
 }
 
 @media (max-width: 1500px) {
@@ -176,7 +175,7 @@
 .aside__item {
   opacity: 0;
   transform: translateX(-20px);
-  animation: slideIn 0.5s ease forwards;
+  animation: slideIn var(--animation-speed) ease forwards;
 }
 
 .aside__item:nth-child(1) {

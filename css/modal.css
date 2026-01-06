@@ -13,13 +13,13 @@
 }
 
 .modal__content {
-  background: #ffffff;
+  background: var(--color-bg);
   border-radius: 8px;
   width: 100%;
   max-width: 500px;
   padding: 30px;
   position: relative;
-  border: 1px solid #dfe3e8;
+  border: 1px solid var(--color-border);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
@@ -28,7 +28,7 @@
   top: 15px;
   right: 20px;
   font-size: 28px;
-  color: #707a8a;
+  color: var(--color-gray);
   background: none;
   border: none;
   cursor: pointer;
@@ -42,11 +42,11 @@
 }
 
 .modal__close:hover {
-  color: #2b2f33;
+  color: var(--color-text);
 }
 
 .modal__title {
-  color: #2b2f33;
+  color: var(--color-text);
   margin-bottom: 25px;
   font-size: 22px;
   font-weight: 600;
@@ -57,7 +57,7 @@
   justify-content: flex-end;
   margin-top: 25px;
   padding-top: 20px;
-  border-top: 1px solid #e6e9ef;
+  border-top: 1px solid var(--color-secondary-border);
 }
 
 .help-content {
@@ -72,28 +72,28 @@
 
 .help-steps li {
   margin-bottom: 12px;
-  color: #2b2f33;
+  color: var(--color-text);
 }
 
 .help-steps code {
-  background: #f2f4f7;
+  background: var(--color-secondary-bg);
   padding: 2px 6px;
   border-radius: 4px;
   font-family: "Consolas", "Monaco", monospace;
-  color: #3755fa;
+  color: var(--color-primary);
   font-size: 13px;
-  border: 1px solid #dfe3e8;
+  border: 1px solid var(--color-secondary-border);
 }
 
 .help-tip {
-  background: #f8f9fa;
+  background: var(--color-bg-light);
   padding: 15px;
   border-radius: 6px;
-  border-left: 4px solid #3755fa;
-  color: #707a8a;
+  border-left: 4px solid var(--color-primary);
+  color: var(--color-text-light);
   font-size: 14px;
 }
 
 .help-tip strong {
-  color: #2b2f33;
+  color: var(--color-text);
 }

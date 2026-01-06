@@ -3,7 +3,7 @@
 }
 
 .output__title {
-  color: #2b2f33;
+  color: var(--color-text);
   margin-bottom: 15px;
   font-size: 20px;
   display: flex;
@@ -30,13 +30,13 @@
 .hidden-btn,
 .open-btn {
   padding: 8px 15px;
-  color: white;
+  color: var(--color-white);
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 12px;
   font-weight: 600;
-  transition: all 0.2s;
+  transition: all var(--transition-fast);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -45,63 +45,55 @@
 }
 
 .copy-btn {
-  background: #191b1e;
+  background: var(--color-dark);
 }
 
 .copy-btn:hover {
-  background: #2b2f33;
-  transform: translateY(-1px);
+  background: var(--color-dark-hover);
 }
 
 .filter-btn {
-  background: #f2f4f7;
-  color: #191b1e;
-  border: 1px solid #dfe3e8;
+  background: var(--color-secondary-bg);
+  color: var(--color-dark);
+  border: 1px solid var(--color-secondary-border);
 }
 
 .filter-btn:hover {
-  background: #dfe3e8;
-  border-color: #cbcdd6;
-  transform: translateY(-1px);
+  background: var(--color-secondary-hover);
+  border-color: var(--color-secondary-border);
 }
 
 .hidden-btn {
-  background: #f2f4f7;
-  color: #191b1e;
-  border: 1px solid #dfe3e8;
+  background: var(--color-secondary-bg);
+  color: var(--color-dark);
+  border: 1px solid var(--color-secondary-border);
 }
 
 .hidden-btn:hover {
-  background: #dfe3e8;
-  border-color: #cbcdd6;
-  transform: translateY(-1px);
+  background: var(--color-secondary-hover);
+  border-color: var(--color-secondary-border);
 }
 
 .open-btn {
-  background: #191b1e;
-  color: white;
+  background: var(--color-dark);
+  color: var(--color-white);
 }
 
 .open-btn:hover {
-  background: #2b2f33;
-  transform: translateY(-1px);
+  background: var(--color-dark-hover);
 }
 
 .output__actions button:hover {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.output__actions button:active {
-  transform: translateY(0);
+  box-shadow: var(--shadow-button);
 }
 
 .stats {
-  background: #ffffff;
+  background: var(--color-bg);
   padding: 15px;
   border-radius: 6px;
   margin-top: 15px;
   font-size: 14px;
-  color: #707a8a;
+  color: var(--color-text-light);
   font-weight: 400;
-  border: 1px solid #dfe3e8;
+  border: 1px solid var(--color-border);
 }
