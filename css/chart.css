@@ -104,14 +104,14 @@
   color: var(--color-text);
 }
 
-@media (max-width: 1500px) {
+@media (max-width: 1800px) {
   .chart-wrapper {
     right: 30px;
     width: 320px;
   }
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1750px) {
   .chart-wrapper {
     position: static;
     transform: none;
@@ -123,7 +123,18 @@
 
   .app-wrapper {
     flex-direction: column;
+    align-items: center;
+    max-width: 1000px;
+  }
+
+  .app-wrapper {
+    flex-direction: column;
     gap: 0;
+  }
+
+  .container {
+    width: 100%;
+    margin: 0 auto;
   }
 }
 

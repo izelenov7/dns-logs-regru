@@ -147,10 +147,6 @@ textarea::placeholder {
     max-width: 1000px;
     gap: 20px;
   }
-
-  .container {
-    width: calc(100% - 350px);
-  }
 }
 
 @media (max-width: 1300px) {
