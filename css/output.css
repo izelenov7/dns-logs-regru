@@ -27,7 +27,6 @@
 
 .copy-btn,
 .filter-btn,
-.hidden-btn,
 .open-btn {
   padding: 8px 15px;
   border: none;
@@ -35,7 +34,7 @@
   cursor: pointer;
   font-size: 12px;
   font-weight: 600;
-  transition: all 0.2s;
+  transition: all var(--transition-fast);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -63,17 +62,6 @@
   border-color: var(--color-secondary-border);
 }
 
-.hidden-btn {
-  background: var(--color-secondary-bg);
-  color: var(--color-text);
-  border: 1px solid var(--color-secondary-border);
-}
-
-.hidden-btn:hover {
-  background: var(--color-secondary-hover);
-  border-color: var(--color-secondary-border);
-}
-
 .open-btn {
   background: var(--color-invert-bg);
   color: var(--color-invert-text);
@@ -84,7 +72,61 @@
 }
 
 .output__actions button:hover {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-button);
+}
+
+.output-text {
+  width: 100%;
+  min-height: 200px;
+  max-height: 400px;
+  padding: 15px;
+  border: 2px solid var(--color-primary);
+  border-radius: 6px;
+  font-family: "Consolas", "Monaco", monospace;
+  font-size: 14px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  position: relative;
+}
+
+.output-text:empty::before {
+  content: attr(placeholder);
+  color: var(--color-placeholder);
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  pointer-events: none;
+}
+
+.output-text:hover {
+  border-color: var(--color-primary-hover);
+}
+
+.output-text:focus {
+  outline: none;
+  border-color: var(--color-primary-hover);
+  box-shadow: 0 0 0 3px rgba(55, 85, 250, 0.1);
+}
+
+.action-text {
+  font-weight: 700;
+}
+
+.action-text.added {
+  color: var(--color-added);
+}
+
+.action-text.removed {
+  color: var(--color-removed);
+}
+
+.output-text::selection {
+  background-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .stats {

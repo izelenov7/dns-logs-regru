@@ -1,66 +1,79 @@
-"use strict";
-
 class LogsConverter {
+  static ALLOWED_TYPES = new Set([
+    "A",
+    "AAAA",
+    "TXT",
+    "CNAME",
+    "MX",
+    "NS",
+    "CAA",
+  ]);
+  static ACTIONS = { ADD: "добавлена", DEL: "удалена" };
+
   constructor() {
-    this.elements = this.initializeElements();
-    this.allowedTypes = ["A", "AAAA", "TXT", "CNAME", "MX", "NS", "CAA"];
     this.allResults = [];
-    this.initializeEventListeners();
+    this.elements = this.initializeElements();
+    this.bindEvents();
     this.updateStats();
   }
 
   initializeElements() {
-    return {
-      inputData: document.getElementById("inputData"),
-      outputData: document.getElementById("outputData"),
-      processBtn: document.getElementById("processBtn"),
-      copyBtn: document.getElementById("copyBtn"),
-      saveBtn: document.getElementById("saveBtn"),
-      clearBtn: document.getElementById("clearBtn"),
-      statsText: document.getElementById("statsText"),
-      hideDeletedBtn: document.getElementById("hideDeletedBtn"),
-      hideAddedBtn: document.getElementById("hideAddedBtn"),
-      showAllBtn: document.getElementById("showAllBtn"),
-      helpBtn: document.getElementById("helpBtn"),
-      helpModal: document.getElementById("helpModal"),
-      helpModalClose: document.getElementById("helpModalClose"),
-      helpModalOk: document.getElementById("helpModalOk"),
-    };
+    const elementIds = [
+      "inputData",
+      "outputData",
+      "processBtn",
+      "copyBtn",
+      "saveBtn",
+      "clearBtn",
+      "statsText",
+      "hideDeletedBtn",
+      "hideAddedBtn",
+      "showAllBtn",
+      "helpBtn",
+      "helpModal",
+      "helpModalClose",
+      "helpModalOk",
+    ];
+
+    return elementIds.reduce((acc, id) => {
+      acc[id] = document.getElementById(id);
+      return acc;
+    }, {});
   }
 
-  initializeEventListeners() {
-    this.elements.processBtn.addEventListener("click", () =>
-      this.processAllData()
-    );
-    this.elements.copyBtn.addEventListener("click", () =>
-      this.copyToClipboard()
-    );
-    this.elements.saveBtn.addEventListener("click", () => this.saveToFile());
-    this.elements.clearBtn.addEventListener("click", () => this.clearAll());
-    this.elements.hideDeletedBtn.addEventListener("click", () =>
-      this.hideDeleted()
-    );
-    this.elements.hideAddedBtn.addEventListener("click", () =>
-      this.hideAdded()
-    );
-    this.elements.showAllBtn.addEventListener("click", () => this.showAll());
-    this.elements.helpBtn.addEventListener("click", () => this.openHelpModal());
-    this.elements.helpModalClose.addEventListener("click", () =>
-      this.closeHelpModal()
-    );
-    this.elements.helpModalOk.addEventListener("click", () =>
-      this.closeHelpModal()
-    );
+  bindEvents() {
+    const {
+      processBtn,
+      copyBtn,
+      saveBtn,
+      clearBtn,
+      hideDeletedBtn,
+      hideAddedBtn,
+      showAllBtn,
+      helpBtn,
+      helpModalClose,
+      helpModalOk,
+      helpModal,
+    } = this.elements;
 
-    this.elements.helpModal.addEventListener("click", (e) => {
-      if (e.target === this.elements.helpModal) this.closeHelpModal();
-    });
+    processBtn.addEventListener("click", () => this.processAllData());
+    copyBtn.addEventListener("click", () => this.copyToClipboard());
+    saveBtn.addEventListener("click", () => this.saveToFile());
+    clearBtn.addEventListener("click", () => this.clearAll());
+    hideDeletedBtn.addEventListener("click", () => this.hideDeleted());
+    hideAddedBtn.addEventListener("click", () => this.hideAdded());
+    showAllBtn.addEventListener("click", () => this.showAll());
+    helpBtn.addEventListener("click", () => this.openHelpModal());
+    helpModalClose.addEventListener("click", () => this.closeHelpModal());
+    helpModalOk.addEventListener("click", () => this.closeHelpModal());
+
+    helpModal.addEventListener(
+      "click",
+      (e) => e.target === helpModal && this.closeHelpModal()
+    );
 
     document.addEventListener("keydown", (e) => {
-      if (
-        e.key === "Escape" &&
-        this.elements.helpModal.style.display === "flex"
-      ) {
+      if (e.key === "Escape" && helpModal.style.display === "flex") {
         this.closeHelpModal();
       }
     });
@@ -78,6 +91,7 @@ class LogsConverter {
 
   cleanDNSContent(content, type) {
     if (typeof content !== "string") return content;
+
     let cleaned = content.trim();
 
     if (type === "TXT" && cleaned.startsWith('"') && cleaned.endsWith('"')) {
@@ -99,7 +113,6 @@ class LogsConverter {
         const fixedStr = jsonStr.replace(/(\w+):/g, '"$1":');
         return JSON.parse(fixedStr);
       } catch {
-        console.warn("Не удалось распарсить JSON:", jsonStr.substring(0, 100));
         return null;
       }
     }
@@ -117,32 +130,25 @@ class LogsConverter {
 
     if (!data) return null;
 
-    const actionText = action === "ADD" ? "добавлена" : "удалена";
+    const actionText = LogsConverter.ACTIONS[action];
     const shortTime = time.substring(0, 5);
 
-    if (action === "ADD") {
-      return this.processAddAction(data, date, shortTime, ip, actionText);
-    }
-
-    if (action === "DEL") {
-      return this.processDeleteAction(data, date, shortTime, ip, actionText);
-    }
-
-    return null;
+    return action === "ADD"
+      ? this.processAddAction(data, date, shortTime, ip, actionText)
+      : this.processDeleteAction(data, date, shortTime, ip, actionText);
   }
 
   processAddAction(data, date, time, ip, actionText) {
-    if (!data.type || !this.allowedTypes.includes(data.type)) return null;
+    const { type, name = "", content = "" } = data;
 
-    const name = data.name || "";
-    let content = data.content || "";
-    const { type } = data;
+    if (!type || !LogsConverter.ALLOWED_TYPES.has(type) || !name || !content) {
+      return null;
+    }
 
-    if (!name || !content) return null;
+    const cleanedContent = this.cleanDNSContent(content, type);
+    const actionClass = actionText === "добавлена" ? "added" : "removed";
 
-    content = this.cleanDNSContent(content, type);
-
-    return `${date} в ${time} с IP-адреса ${ip} была ${actionText} ${type}-запись для ${name} со значением ${content}`;
+    return `${date} в ${time} с IP-адреса ${ip} была <span class="action-text ${actionClass}">${actionText}</span> ${type}-запись для ${name} со значением ${cleanedContent}`;
   }
 
   processDeleteAction(data, date, time, ip, actionText) {
@@ -153,18 +159,19 @@ class LogsConverter {
 
     if (query.includes("DELETE FROM records") && data.bind.length >= 5) {
       const possibleType = data.bind[2];
-      if (possibleType && this.allowedTypes.includes(possibleType)) {
+      if (possibleType && LogsConverter.ALLOWED_TYPES.has(possibleType)) {
         type = possibleType;
         name = data.bind[1];
         content = data.bind[4];
-
-        content = this.cleanDNSContent(content, type);
       }
     }
 
     if (!type || !name || !content) return null;
 
-    return `${date} в ${time} с IP-адреса ${ip} была ${actionText} ${type}-запись для ${name} со значением ${content}`;
+    const cleanedContent = this.cleanDNSContent(content, type);
+    const actionClass = actionText === "добавлена" ? "added" : "removed";
+
+    return `${date} в ${time} с IP-адреса ${ip} была <span class="action-text ${actionClass}">${actionText}</span> ${type}-запись для ${name} со значением ${cleanedContent}`;
   }
 
   processAllData() {
@@ -172,34 +179,28 @@ class LogsConverter {
 
     if (!input) {
       this.allResults = [];
-      this.elements.outputData.value = "";
+      this.elements.outputData.innerHTML = "";
       this.updateStats();
-      if (window.activityChart) {
-        window.activityChart.clear();
-      }
+      if (window.activityChart) window.activityChart.clear();
       return;
     }
 
     const lines = input.split("\n");
-    const results = [];
-
-    for (const line of lines) {
+    const results = lines.reduce((acc, line) => {
       const trimmedLine = line.trim();
-      if (!trimmedLine) continue;
+      if (!trimmedLine) return acc;
 
       const result = this.processLine(trimmedLine);
-      if (result) results.push(result);
-    }
+      if (result) acc.push(result);
+      return acc;
+    }, []);
 
     this.allResults = results;
-    this.elements.outputData.value = results.join("\n");
+    this.elements.outputData.innerHTML = results.join("\n");
     this.updateStats(results.length, lines.length);
 
     if (window.activityChart && results.length > 0) {
-      console.log("Sending data to chart:", results.length, "records");
       window.activityChart.parseLogs(results);
-    } else {
-      console.log("Chart not available or no results");
     }
   }
 
@@ -214,14 +215,14 @@ class LogsConverter {
 
   hideDeleted() {
     this.filterResults(
-      (line) => !line.includes("была удалена"),
+      (line) => !line.includes('class="action-text removed"'),
       "Показано записей"
     );
   }
 
   hideAdded() {
     this.filterResults(
-      (line) => !line.includes("была добавлена"),
+      (line) => !line.includes('class="action-text added"'),
       "Показано записей"
     );
   }
@@ -229,7 +230,7 @@ class LogsConverter {
   showAll() {
     if (this.allResults.length === 0) return;
 
-    this.elements.outputData.value = this.allResults.join("\n");
+    this.elements.outputData.innerHTML = this.allResults.join("\n");
     this.elements.statsText.textContent = `Показано записей: ${this.allResults.length} из ${this.allResults.length}`;
   }
 
@@ -237,43 +238,44 @@ class LogsConverter {
     if (this.allResults.length === 0) return;
 
     const filtered = this.allResults.filter(filterFn);
-    this.elements.outputData.value = filtered.join("\n");
+    this.elements.outputData.innerHTML = filtered.join("\n");
     this.elements.statsText.textContent = `${prefix}: ${filtered.length} из ${this.allResults.length}`;
   }
 
   async copyToClipboard() {
-    if (!this.elements.outputData.value.trim()) {
+    const textContent = this.elements.outputData.textContent;
+
+    if (!textContent.trim()) {
       alert("Нет данных для копирования");
       return;
     }
 
     try {
-      await navigator.clipboard.writeText(this.elements.outputData.value);
-      this.updateButtonState(this.elements.copyBtn, "fas fa-copy", "#28a745");
+      await navigator.clipboard.writeText(textContent);
+      this.updateButtonState(this.elements.copyBtn, "Скопировано!", "#28a745");
     } catch {
       alert("Ошибка при копировании. Пожалуйста, скопируйте текст вручную.");
     }
   }
 
-  updateButtonState(button, iconClass, color) {
-    const originalIcon = button.querySelector("i");
-    const originalText = button.querySelector(".copy-text");
-    const originalIconClass = originalIcon.className;
-    const originalTextContent = originalText.textContent;
+  updateButtonState(button, text, color) {
+    const originalText = button.querySelector("span");
+    const originalContent = originalText.textContent;
+    const originalBackground = button.style.background;
 
-    originalIcon.className = "fas fa-check";
-    originalText.textContent = "Скопировано!";
+    originalText.textContent = text;
     button.style.background = color;
 
     setTimeout(() => {
-      originalIcon.className = originalIconClass;
-      originalText.textContent = originalTextContent;
-      button.style.background = "";
+      originalText.textContent = originalContent;
+      button.style.background = originalBackground;
     }, 2000);
   }
 
   saveToFile() {
-    if (!this.elements.outputData.value.trim()) {
+    const textContent = this.elements.outputData.textContent;
+
+    if (!textContent.trim()) {
       alert("Нет данных для сохранения");
       return;
     }
@@ -282,9 +284,7 @@ class LogsConverter {
     const date = new Date().toISOString().slice(0, 10);
     const filename = domain ? `logs_${domain}_${date}.txt` : `logs_${date}.txt`;
 
-    const blob = new Blob([this.elements.outputData.value], {
-      type: "text/plain;charset=utf-8",
-    });
+    const blob = new Blob([textContent], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
 
@@ -300,7 +300,8 @@ class LogsConverter {
     if (this.allResults.length === 0) return null;
 
     const firstRecord = this.allResults[0];
-    const domainMatch = firstRecord.match(/для\s+([^\s]+)/);
+    const cleanText = firstRecord.replace(/<[^>]*>/g, "");
+    const domainMatch = cleanText.match(/для\s+([^\s]+)/);
 
     if (domainMatch && domainMatch[1]) {
       const fullDomain = domainMatch[1];
@@ -317,16 +318,13 @@ class LogsConverter {
 
   clearAll() {
     this.elements.inputData.value = "";
-    this.elements.outputData.value = "";
+    this.elements.outputData.innerHTML = "";
     this.allResults = [];
     this.updateStats();
-    if (window.activityChart) {
-      window.activityChart.clear();
-    }
+    if (window.activityChart) window.activityChart.clear();
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Initializing LogsConverter...");
   window.logsConverter = new LogsConverter();
 });

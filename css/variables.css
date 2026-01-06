@@ -14,7 +14,6 @@
   --color-bg-container: #f9fafc;
   --color-border: #dfe3e8;
   --color-placeholder: #cbcdd6;
-  --color-success: #28a745;
   --color-white: #ffffff;
   --color-gray: #707a8a;
   --color-shadow: rgba(0, 0, 0, 0.034);
@@ -23,6 +22,11 @@
   --color-invert-bg: #191b1e;
   --color-invert-text: #ffffff;
   --color-invert-hover: #2b2f33;
+  --color-added: #28a745;
+  --color-removed: #dc3545;
+  --color-success: #28a745;
+  --transition-fast: 0.2s;
+  --shadow-button: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] {
@@ -41,7 +45,6 @@
   --color-bg-container: #1a202c;
   --color-border: #4a5568;
   --color-placeholder: #718096;
-  --color-success: #48bb78;
   --color-white: #e2e8f0;
   --color-gray: #a0aec0;
   --color-shadow: rgba(0, 0, 0, 0.2);
@@ -50,4 +53,7 @@
   --color-invert-bg: #e2e8f0;
   --color-invert-text: #1a202c;
   --color-invert-hover: #acb5c0;
+  --color-added: #34d058;
+  --color-removed: #f85149;
+  --color-success: #48bb78;
 }

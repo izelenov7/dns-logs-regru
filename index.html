@@ -2,41 +2,40 @@
 <html lang="ru">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Конвертер логов DNS</title>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="./css/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./css/main.css">
 
   <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M448 80v48c0 44.2-100.3 80-224 80S0 172.2 0 128V80C0 35.8 100.3 0 224 0S448 35.8 448 80zM393.2 214.7c20.8-7.4 39.9-16.9 54.8-28.6V288c0 44.2-100.3 80-224 80S0 332.2 0 288V186.1c14.9 11.8 34 21.2 54.8 28.6C99.7 230.7 159.5 240 224 240s124.3-9.3 169.2-25.3zM0 346.1c14.9 11.8 34 21.2 54.8 28.6C99.7 390.7 159.5 400 224 400s124.3-9.3 169.2-25.3c20.8-7.4 39.9-16.9 54.8-28.6V432c0 44.2-100.3 80-224 80S0 476.2 0 432V346.1z' fill='%233755fa'/></svg>" />
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M448 80v48c0 44.2-100.3 80-224 80S0 172.2 0 128V80C0 35.8 100.3 0 224 0S448 35.8 448 80zM393.2 214.7c20.8-7.4 39.9-16.9 54.8-28.6V288c0 44.2-100.3 80-224 80S0 332.2 0 288V186.1c14.9 11.8 34 21.2 54.8 28.6C99.7 230.7 159.5 240 224 240s124.3-9.3 169.2-25.3zM0 346.1c14.9 11.8 34 21.2 54.8 28.6C99.7 390.7 159.5 400 224 400s124.3-9.3 169.2-25.3c20.8-7.4 39.9-16.9 54.8-28.6V432c0 44.2-100.3 80-224 80S0 476.2 0 432V346.1z' fill='%233755fa'/></svg>">
 </head>
 
 <body>
-
   <aside class="aside">
     <ul class="aside__list">
       <li class="aside__item">
-        <a href="https://www.reg.ru/whois/" target="_blank" class="aside__link">
+        <a href="https://www.reg.ru/whois/" target="_blank" rel="noopener noreferrer" class="aside__link">
           <i class="fas fa-search"></i>
           <span class="aside__text">Whois REG.RU</span>
         </a>
       </li>
       <li class="aside__item">
-        <a href="https://www.nic.ru/whois/" target="_blank" class="aside__link">
+        <a href="https://www.nic.ru/whois/" target="_blank" rel="noopener noreferrer" class="aside__link">
           <i class="fas fa-server"></i>
           <span class="aside__text">Whois NIC.RU</span>
         </a>
       </li>
       <li class="aside__item">
-        <a href="https://www.digwebinterface.com/" target="_blank" class="aside__link">
+        <a href="https://www.digwebinterface.com/" target="_blank" rel="noopener noreferrer" class="aside__link">
           <i class="fas fa-terminal"></i>
           <span class="aside__text">Dig Web Interface</span>
         </a>
       </li>
       <li class="aside__item">
-        <a href="https://who.is/dns" target="_blank" class="aside__link">
+        <a href="https://who.is/dns" target="_blank" rel="noopener noreferrer" class="aside__link">
           <i class="fas fa-database"></i>
           <span class="aside__text">DNS Record Lookup</span>
         </a>
@@ -79,15 +78,15 @@
           <div class="buttons">
             <button class="btn btn-primary" id="processBtn">
               <i class="fas fa-sync-alt"></i>
-              <span class="process-data">Обработать данные</span>
+              <span>Обработать данные</span>
             </button>
             <button class="btn btn-secondary" id="saveBtn">
               <i class="fas fa-save"></i>
-              <span class="save-logs">Сохранить логи в файле</span>
+              <span>Сохранить логи в файле</span>
             </button>
             <button class="btn btn-clear" id="clearBtn">
               <i class="fas fa-broom"></i>
-              <span class="clear">Очистить</span>
+              <span>Очистить</span>
             </button>
           </div>
         </section>
@@ -101,22 +100,23 @@
             <div class="output__actions">
               <button class="copy-btn" id="copyBtn">
                 <i class="fas fa-copy"></i>
-                <span class="copy-text">Копировать</span>
+                <span>Копировать</span>
               </button>
               <button class="filter-btn" id="hideDeletedBtn">
                 <i class="fas fa-trash-alt"></i>
-                <span class="filter-text">Скрыть удаленные</span>
+                <span>Скрыть удаленные</span>
               </button>
-              <button class="hidden-btn" id="hideAddedBtn">
+              <button class="filter-btn" id="hideAddedBtn">
                 <i class="fas fa-plus-circle"></i>
-                <span class="hidden-text">Скрыть добавленные</span>
+                <span>Скрыть добавленные</span>
               </button>
               <button class="open-btn" id="showAllBtn">
                 <i class="fas fa-eye"></i>
-                <span class="open-text">Показать все</span>
+                <span>Показать все</span>
               </button>
             </div>
-            <textarea id="outputData" readonly placeholder="Здесь появятся преобразованные данные..."></textarea>
+            <div id="outputData" class="output-text" readonly placeholder="Здесь появятся преобразованные данные...">
+            </div>
           </div>
           <div class="stats">
             <span id="statsText">Обработано записей: 0</span>
@@ -131,9 +131,9 @@
             <p class="bug">
               <i class="fas fa-bug"></i>
               Сообщить об ошибке:
-              <a href="https://t.me/igorqx" target="_blank" class="telegram-link">
+              <a href="https://t.me/igorqx" target="_blank" rel="noopener noreferrer" class="telegram-link">
                 <i class="fab fa-telegram-plane"></i>
-                <span class="tg">@igorqx</span>
+                <span>@igorqx</span>
               </a>
             </p>
           </div>
@@ -178,23 +178,12 @@
         <ol class="help-steps">
           <li>Отсортируйте домен в manager</li>
           <li>Нажмите Zl</li>
-          <li>
-            Выберите даты в manager, за какой период вам необходимы логи
-            домена
-          </li>
-          <li>
-            Скопируйте все логи домена от <code>Дата</code> сверху до
-            <code>}</code> снизу. Если вы скопируете лишние символы — ничего
-            страшного. Главное скопируйте все содержимое таблицы
-          </li>
-          <li>
-            Вставьте скопированные данные в поле "Входные данные" и нажмите
-            "Обработать данные"
-          </li>
+          <li>Выберите даты в manager, за какой период вам необходимы логи домена</li>
+          <li>Скопируйте все логи домена от <code>Дата</code> сверху до <code>}</code> снизу</li>
+          <li>Вставьте скопированные данные в поле "Входные данные" и нажмите "Обработать данные"</li>
         </ol>
         <div class="help-tip">
-          <strong>Совет:</strong> Для быстрой очистки полей используйте кнопку
-          "Очистить".
+          <strong>Совет:</strong> Для быстрой очистки полей используйте кнопку "Очистить".
         </div>
       </div>
       <div class="modal__actions">
@@ -204,9 +193,9 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="./js/main.js"></script>
-  <script src="./js/theme.js"></script>
-  <script src="./js/chart.js"></script>
+  <script src="./js/main.js" type="module"></script>
+  <script src="./js/theme.js" type="module"></script>
+  <script src="./js/chart.js" type="module"></script>
 </body>
 
 </html>

@@ -1,9 +1,7 @@
-"use strict";
-
 class ThemeSwitcher {
   constructor() {
-    this.elements = this.initializeElements();
     this.theme = this.getSavedTheme() || this.getSystemPreference();
+    this.elements = this.initializeElements();
     this.initialize();
   }
 
@@ -20,13 +18,9 @@ class ThemeSwitcher {
   }
 
   getSystemPreference() {
-    if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      return "dark";
-    }
-    return "light";
+    return window.matchMedia?.("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
   }
 
   initialize() {
@@ -60,6 +54,4 @@ class ThemeSwitcher {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  new ThemeSwitcher();
-});
+document.addEventListener("DOMContentLoaded", () => new ThemeSwitcher());
